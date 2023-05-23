@@ -11,31 +11,97 @@ import java.util.Set;
  * @param <T> The type of each vertex, that have a total ordering.
  */
 public class Graph<T extends Comparable<T>> {
-  public Graph(Set<T> verticies, Set<Edge<T>> edges) {}
+  private Set<T> verticies;
+  private Set<Edge<T>> edges;
+
+  public Graph(Set<T> verticies, Set<Edge<T>> edges) {
+    this.verticies = verticies;
+    this.edges = edges;
+  }
 
   public Set<T> getRoots() {
-    // TODO: Task 1.
+
     throw new UnsupportedOperationException();
   }
 
   public boolean isReflexive() {
-    // TODO: Task 1.
-    throw new UnsupportedOperationException();
+    if (verticies.isEmpty() && edges.isEmpty()) {
+      throw new UnsupportedOperationException();
+    }
+    if (verticies.size() > 0 && edges.size() == 0) {
+      return false;
+    } else if (verticies.size() == 0) {
+      return true;
+    }
+
+    for (T vertex : verticies) {
+      if (!edges.contains(new Edge<>(vertex, vertex))) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   public boolean isSymmetric() {
-    // TODO: Task 1.
-    throw new UnsupportedOperationException();
+    if (verticies.isEmpty() && edges.isEmpty()) {
+      throw new UnsupportedOperationException();
+    }
+    if (edges.size() == 0) {
+      return true;
+    }
+    for (Edge<T> edge : edges) {
+      Edge<T> temp = new Edge<>(edge.getDestination(), edge.getSource());
+      if (!edges.contains(temp)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public boolean isTransitive() {
-    // TODO: Task 1.
-    throw new UnsupportedOperationException();
+    if (verticies.isEmpty() && edges.isEmpty()) {
+      throw new UnsupportedOperationException();
+    }
+    if (edges.size() == 0) {
+      return true;
+    }
+
+    for (Edge<T> edge1 : edges) {
+      T vertexA = edge1.getSource();
+      T vertexB = edge1.getDestination();
+      for (Edge<T> edge2 : edges) {
+        T vertexC = edge2.getSource();
+        T vertexD = edge2.getDestination();
+
+        if (vertexB == vertexC) {
+          Edge<T> temp = new Edge<>(vertexA, vertexD);
+          if (!edges.contains(temp)) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
   }
 
   public boolean isAntiSymmetric() {
-    // TODO: Task 1.
-    throw new UnsupportedOperationException();
+    if (verticies.isEmpty() && edges.isEmpty()) {
+      throw new UnsupportedOperationException();
+    }
+
+    if (edges.size() == 0) {
+      return true;
+    }
+
+    for (Edge<T> edge : edges) {
+      if (edge.getSource() != edge.getDestination()) {
+        if (edges.contains(new Edge<>(edge.getDestination(), edge.getSource()))) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   public boolean isEquivalence() {
