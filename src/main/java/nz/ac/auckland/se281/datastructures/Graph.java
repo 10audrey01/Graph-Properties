@@ -1,5 +1,6 @@
 package nz.ac.auckland.se281.datastructures;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,8 +21,31 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public Set<T> getRoots() {
+    if (verticies.isEmpty() && edges.isEmpty()) {
+      throw new UnsupportedOperationException();
+    }
 
-    throw new UnsupportedOperationException();
+    Set<T> roots = new HashSet<>(verticies);
+
+    for (T vertex : verticies) {
+      for (Edge<T> edge : edges) {
+        if (vertex.compareTo(edge.getDestination()) == 0
+            && vertex.compareTo(edge.getSource()) != 0) {
+          roots.remove(vertex);
+        }
+      }
+    }
+
+    if (isEquivalence()) {
+      for (T vertex : verticies) {
+        Set<T> equivalenceClass = getEquivalenceClass(vertex);
+        if (!roots.contains(equivalenceClass.iterator().next())) {
+          roots.add(equivalenceClass.iterator().next());
+        }
+      }
+    }
+
+    return roots;
   }
 
   public boolean isReflexive() {
@@ -105,13 +129,35 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public boolean isEquivalence() {
-    // TODO: Task 1.
-    throw new UnsupportedOperationException();
+    if (verticies.isEmpty() && edges.isEmpty()) {
+      throw new UnsupportedOperationException();
+    }
+
+    if (isReflexive() && isSymmetric() && isTransitive()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public Set<T> getEquivalenceClass(T vertex) {
-    // TODO: Task 1.
-    throw new UnsupportedOperationException();
+    if (verticies.isEmpty() && edges.isEmpty()) {
+      throw new UnsupportedOperationException();
+    }
+
+    if (!isEquivalence()) {
+      return new HashSet<T>();
+    }
+
+    Set<T> equivalenceClass = new HashSet<T>();
+
+    for (Edge<T> edge : edges) {
+      if (vertex.compareTo(edge.getSource()) == 0) {
+        equivalenceClass.add(edge.getDestination());
+      }
+    }
+
+    return equivalenceClass;
   }
 
   public List<T> iterativeBreadthFirstSearch() {
