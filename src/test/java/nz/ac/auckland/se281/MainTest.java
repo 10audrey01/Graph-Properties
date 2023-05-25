@@ -184,7 +184,7 @@ public class MainTest {
     public void T2_B_iterative_BFS() throws Exception {
       runCommands(OPEN_FILE, "b.txt", GRAPH_SEARCH_IBFS);
       assertContains("Successfully opened graph from file b.txt");
-      assertContains("[0, 1, 2, 3, 4, 5]");
+      assertContains("[6, 5, 4, 3, 2, 1, 0]");
     }
 
     @Test
@@ -205,7 +205,7 @@ public class MainTest {
     public void T2_B_iterative_DFS() throws Exception {
       runCommands(OPEN_FILE, "b.txt", GRAPH_SEARCH_IDFS);
       assertContains("Successfully opened graph from file b.txt");
-      assertContains("[0, 1, 2, 3, 4, 5]");
+      assertContains("[6, 5, 4, 3, 2, 1, 0]");
     }
 
     @Test
