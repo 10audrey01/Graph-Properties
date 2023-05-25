@@ -23,19 +23,22 @@ public class Graph<T extends Comparable<T>> {
   public Set<T> getRoots() {
     if (verticies.isEmpty() && edges.isEmpty()) {
       throw new UnsupportedOperationException();
-    }
+    } // if the graph is empty, operation is not supported
 
     Set<T> roots = new HashSet<>(verticies);
 
     for (T vertex : verticies) {
       for (Edge<T> edge : edges) {
         if (vertex.compareTo(edge.getDestination()) == 0
-            && vertex.compareTo(edge.getSource()) != 0) {
-          roots.remove(vertex);
+            && vertex.compareTo(edge.getSource())
+                != 0) { // check if every vertex has in-degree of more than 0
+          roots.remove(vertex); // if it does, remove it from the set of roots
         }
       }
     }
 
+    // if the graph is an equivalence relation, add the first vertex of each equivalence class to
+    // the set of roots
     if (isEquivalence()) {
       for (T vertex : verticies) {
         Set<T> equivalenceClass = getEquivalenceClass(vertex);
@@ -59,7 +62,7 @@ public class Graph<T extends Comparable<T>> {
     }
 
     for (T vertex : verticies) {
-      if (!edges.contains(new Edge<>(vertex, vertex))) {
+      if (!edges.contains(new Edge<>(vertex, vertex))) { // check if vertex has self loop
         return false;
       }
     }
@@ -76,7 +79,7 @@ public class Graph<T extends Comparable<T>> {
     }
     for (Edge<T> edge : edges) {
       Edge<T> temp = new Edge<>(edge.getDestination(), edge.getSource());
-      if (!edges.contains(temp)) {
+      if (!edges.contains(temp)) { // check if every edge has a reverse edge
         return false;
       }
     }
@@ -91,6 +94,7 @@ public class Graph<T extends Comparable<T>> {
       return true;
     }
 
+    // check if every edge has a transitive edge
     for (Edge<T> edge1 : edges) {
       T vertexA = edge1.getSource();
       T vertexB = edge1.getDestination();
@@ -118,6 +122,7 @@ public class Graph<T extends Comparable<T>> {
       return true;
     }
 
+    // check if every edge has a reverse edge and if it's a self loop
     for (Edge<T> edge : edges) {
       if (edge.getSource() != edge.getDestination()) {
         if (edges.contains(new Edge<>(edge.getDestination(), edge.getSource()))) {
@@ -150,9 +155,9 @@ public class Graph<T extends Comparable<T>> {
     }
 
     Set<T> equivalenceClass = new HashSet<T>();
-
     for (Edge<T> edge : edges) {
       if (vertex.compareTo(edge.getSource()) == 0) {
+        // if the vertex is the source of an edge, add the destination to the equivalence class
         equivalenceClass.add(edge.getDestination());
       }
     }
