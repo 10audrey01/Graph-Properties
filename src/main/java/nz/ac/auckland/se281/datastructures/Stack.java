@@ -8,9 +8,9 @@ public class Stack<T> {
   }
 
   public void push(T data) {
-    Node<T> temp = new Node<T>(data); // initialise data into temp node
-    temp.setNext(top); // put top reference into temp next
-    top = temp; // make temp as top of stack
+    Node<T> newNode = new Node<T>(data); // initialise data into new node
+    newNode.setNext(top); // put top reference into new node next
+    top = newNode; // make new node as top of stack
   }
 
   public void pop() {
@@ -18,7 +18,7 @@ public class Stack<T> {
       System.out.println("Stack Underflow");
       return;
     }
-    top = top.getNext();
+    top = top.getNext(); // update top reference to point to next node
   }
 
   public T peek() {
@@ -26,7 +26,7 @@ public class Stack<T> {
       System.out.println("Stack Underflow");
       return null;
     }
-    return top.getData();
+    return top.getData(); // return data of top node
   }
 
   public int size() {

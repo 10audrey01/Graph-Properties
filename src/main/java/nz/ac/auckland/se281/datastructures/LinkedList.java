@@ -16,9 +16,9 @@ public class LinkedList<T> {
       head = newNode;
       tail = newNode;
     } else {
-      newNode.setPrev(tail);
-      tail.setNext(newNode);
-      newNode.setNext(null);
+      newNode.setPrev(tail); // set the new node's previous to the current tail
+      tail.setNext(newNode); // set the current tail's next to the new node
+      newNode.setNext(null); // set the new node's next to null
       tail = newNode;
     }
   }
@@ -32,7 +32,7 @@ public class LinkedList<T> {
         return current.getData();
       }
       count++;
-      current = current.getNext();
+      current = current.getNext(); // update current to next node
     }
     throw new IndexOutOfBoundsException();
   }
@@ -62,12 +62,13 @@ public class LinkedList<T> {
       head = head.getNext();
     } else {
       Node<T> current = head;
-      for (int i = 0; i < index - 1; i++) {
+      for (int i = 0; i < index - 1; i++) { // stop at node before the one to be removed
         current = current.getNext();
       }
-      Node<T> temp = current.getNext();
-      current.setNext(temp.getNext());
-      temp.getNext().setPrev(current);
+      Node<T> temp = current.getNext(); // node to be removed
+      current.setNext(temp.getNext()); // set current's next to the node after the one to be removed
+      temp.getNext()
+          .setPrev(current); // set the node after the one to be removed's previous to current
     }
   }
 
