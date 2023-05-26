@@ -63,17 +63,32 @@ public class Edge<T> {
   @Override
   public boolean equals(
       Object obj) { // Override equals() to compare two edges with source and destination
-    if (this == obj) return true; // check if obj is the same as this
-    if (obj == null) return false; // check if obj is null
-    if (getClass() != obj.getClass()) return false;
+    if (this == obj) {
+      return true; // check if obj is the same as this
+    }
+    if (obj == null) {
+      return false; // check if obj is null
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+
     Edge other = (Edge) obj; // cast obj to Edge
+
     if (source == null) {
-      if (other.source != null) return false; // compare source and destination
-    } else if (!source.equals(other.source)) return false;
+      if (other.source != null) {
+        return false; // compare source and destination
+      }
+    } else if (!source.equals(other.source)) {
+      return false;
+    }
     if (destination == null) { // compare source and destination
-      if (other.destination != null) return false;
-    } else if (!destination.equals(other.destination))
+      if (other.destination != null) {
+        return false;
+      }
+    } else if (!destination.equals(other.destination)) {
       return false; // compare source and destination
+    }
     return true;
   }
 }
