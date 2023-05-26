@@ -1,6 +1,7 @@
 package nz.ac.auckland.se281.datastructures;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -166,8 +167,47 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public List<T> iterativeBreadthFirstSearch() {
-    // TODO: Task 2.
-    throw new UnsupportedOperationException();
+    Set<T> roots = getRoots();
+    T rootNode = roots.iterator().next();
+    Queue<T> queue = new Queue<>();
+    List<T> visited = new LinkedList<T>();
+    int countRootsVisited = 0;
+
+    visited.add(rootNode);
+    countRootsVisited++;
+    queue.enqueue(rootNode);
+
+    while (!queue.isEmpty()) {
+      for (Edge<T> edge : edges) {
+        if (edge.getSource().compareTo(queue.peek()) == 0
+            && !visited.contains(edge.getDestination())) {
+          visited.add(edge.getDestination());
+          queue.enqueue(edge.getDestination());
+        }
+      }
+
+      if (countRootsVisited < roots.size()) { // if there are more roots to visit
+        rootNode = nthElementinSet(roots, countRootsVisited); // root node is the next root
+        if (!visited.contains(rootNode)) { // if the root node hasn't been visited
+          visited.add(rootNode);
+          countRootsVisited++;
+          queue.enqueue(rootNode);
+        }
+      }
+      queue.dequeue();
+    }
+    return visited;
+  }
+
+  public T nthElementinSet(Iterable<T> data, int n) {
+    int index = 0;
+    for (T element : data) {
+      if (index == n) {
+        return element;
+      }
+      index++;
+    }
+    return null;
   }
 
   public List<T> iterativeDepthFirstSearch() {
