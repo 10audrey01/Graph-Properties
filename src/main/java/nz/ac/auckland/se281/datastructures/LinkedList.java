@@ -4,11 +4,17 @@ public class LinkedList<T> {
   private Node<T> head;
   private Node<T> tail;
 
+  /** Create an empty linked list with head and tail set to null. */
   public LinkedList() {
     this.head = null;
     this.tail = null;
   }
 
+  /**
+   * Add a new node to the end of the list.
+   *
+   * @param data
+   */
   public void add(T data) {
     Node<T> newNode = new Node<T>(data);
 
@@ -23,6 +29,12 @@ public class LinkedList<T> {
     }
   }
 
+  /**
+   * Gets the data of the node at the specified index.
+   *
+   * @param index
+   * @return data of the node at the specified index
+   */
   public T get(int index) {
     Node<T> current = head;
     int count = 0;
@@ -37,26 +49,37 @@ public class LinkedList<T> {
     throw new IndexOutOfBoundsException();
   }
 
-  public void insert(int index, T data) { // update after implementing size()
+  /**
+   * Inserts a new node at the specified index.
+   *
+   * @param index
+   * @param data
+   */
+  public void insert(int index, T data) {
     if (index >= size()) {
       throw new IndexOutOfBoundsException();
     }
     Node<T> newNode = new Node<T>(data);
     if (index == 0) {
-      newNode.setNext(head);
-      head = newNode;
+      newNode.setNext(head); // set new node's next to current head
+      head = newNode; // set new node as head
     } else {
       Node<T> current = head;
       for (int i = 0; i < index - 1; i++) {
         current = current.getNext();
       }
-      newNode.setNext(current.getNext());
-      newNode.setPrev(current);
-      current.setNext(newNode);
-      current.getNext().setPrev(newNode);
+      newNode.setNext(current.getNext()); // set new node's next to current's next
+      newNode.setPrev(current); // set new node's previous to current
+      current.setNext(newNode); // set current's next to new node
+      current.getNext().setPrev(newNode); // set the node after the new node's previous to new node
     }
   }
 
+  /**
+   * Removes the node at the specified index.
+   *
+   * @param index
+   */
   public void remove(int index) {
     if (index == 0) {
       head = head.getNext();
@@ -72,6 +95,11 @@ public class LinkedList<T> {
     }
   }
 
+  /**
+   * Returns the number of nodes in the list.
+   *
+   * @return number of nodes in the list
+   */
   public int size() {
     Node<T> current = head;
     int count = 0;
@@ -83,6 +111,11 @@ public class LinkedList<T> {
     return count;
   }
 
+  /**
+   * Checks is list is empty
+   *
+   * @return true if the list is empty and false otherwise
+   */
   public boolean isEmpty() {
     if (head == null) {
       return true;
@@ -90,28 +123,18 @@ public class LinkedList<T> {
     return false;
   }
 
+  /**
+   * Returns the index of the first occurrence of the specified data.
+   *
+   * @param data
+   * @return index of the first occurrence of the specified data
+   */
   public int indexOf(T data) {
     for (int i = 0; i < size(); i++) {
       if (get(i).equals(data)) {
         return i;
       }
     }
-    return -1;
-  }
-
-  @Override
-  public String toString() {
-    String result = "[";
-    Node<T> current = head;
-
-    while (current != null) {
-      result += current.getData();
-
-      if (current.getNext() != null) {
-        result += ", ";
-      }
-      current = current.getNext();
-    }
-    return result + "]";
+    return -1; // data not found
   }
 }

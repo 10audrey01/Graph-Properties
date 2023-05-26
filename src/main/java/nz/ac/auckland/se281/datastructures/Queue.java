@@ -4,24 +4,31 @@ public class Queue<T> {
   private Node<T> front;
   private Node<T> back;
 
+  /** Constructor for Queue class with front and back. */
   public Queue() {
     this.front = null;
     this.back = null;
   }
 
+  /**
+   * Adds data to the queue.
+   *
+   * @param data
+   */
   public void enqueue(T data) {
     Node<T> newNode = new Node<T>(data);
 
-    if (back == null) {
-      front = newNode;
-      back = newNode;
+    if (back == null) { // if the queue is empty
+      front = newNode; // set the new node as the front and back
+      back = newNode; // set the new node as the front and back
     } else {
       newNode.setPrev(back); // set the new node's previous to the current tail
       back.setNext(newNode); // set the current tail's next to the new node
-      back = newNode;
+      back = newNode; // set the new node as the new tail
     }
   }
 
+  /** Removes the front element of the queue. */
   public void dequeue() {
     if (front == null) {
       System.out.println("Underflow");
@@ -36,6 +43,11 @@ public class Queue<T> {
     }
   }
 
+  /**
+   * Returns the front element of the queue.
+   *
+   * @return front element of the queue
+   */
   public T peek() {
     if (front == null) {
       System.out.println("Underflow");
@@ -43,23 +55,12 @@ public class Queue<T> {
     return front.getData();
   }
 
+  /**
+   * Checks if the queue is empty.
+   *
+   * @return true if the queue is empty and false otherwise
+   */
   public boolean isEmpty() {
     return front == null;
-  }
-
-  @Override
-  public String toString() {
-    String result = "[";
-    Node<T> current = front;
-
-    while (current != null) {
-      result += current.getData();
-
-      if (current.getNext() != null) {
-        result += ", ";
-      }
-      current = current.getNext();
-    }
-    return result + "]";
   }
 }

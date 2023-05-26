@@ -21,6 +21,11 @@ public class Graph<T extends Comparable<T>> {
     this.edges = edges;
   }
 
+  /**
+   * Finds the set of root verticies in the graph.
+   *
+   * @return The set of root verticies.
+   */
   public Set<T> getRoots() {
     if (verticies.isEmpty() && edges.isEmpty()) {
       throw new UnsupportedOperationException();
@@ -52,6 +57,11 @@ public class Graph<T extends Comparable<T>> {
     return roots;
   }
 
+  /**
+   * Checks if the graph is reflexive
+   *
+   * @return true or false
+   */
   public boolean isReflexive() {
     if (verticies.isEmpty() && edges.isEmpty()) {
       throw new UnsupportedOperationException();
@@ -71,6 +81,11 @@ public class Graph<T extends Comparable<T>> {
     return true;
   }
 
+  /**
+   * Checks if the graph is symmetric
+   *
+   * @return true or false
+   */
   public boolean isSymmetric() {
     if (verticies.isEmpty() && edges.isEmpty()) {
       throw new UnsupportedOperationException();
@@ -87,6 +102,11 @@ public class Graph<T extends Comparable<T>> {
     return true;
   }
 
+  /**
+   * Checks if the graph is transitive
+   *
+   * @return true or false
+   */
   public boolean isTransitive() {
     if (verticies.isEmpty() && edges.isEmpty()) {
       throw new UnsupportedOperationException();
@@ -114,6 +134,11 @@ public class Graph<T extends Comparable<T>> {
     return true;
   }
 
+  /**
+   * Checks if the graph is anti-symmetric
+   *
+   * @return true or false
+   */
   public boolean isAntiSymmetric() {
     if (verticies.isEmpty() && edges.isEmpty()) {
       throw new UnsupportedOperationException();
@@ -134,6 +159,11 @@ public class Graph<T extends Comparable<T>> {
     return true;
   }
 
+  /**
+   * Checks if the graph is an equivalence relation
+   *
+   * @return true or false
+   */
   public boolean isEquivalence() {
     if (verticies.isEmpty() && edges.isEmpty()) {
       throw new UnsupportedOperationException();
@@ -146,6 +176,12 @@ public class Graph<T extends Comparable<T>> {
     }
   }
 
+  /**
+   * Finds the equivalence class of a vertex
+   *
+   * @param vertex
+   * @return the equivalence class of the vertex
+   */
   public Set<T> getEquivalenceClass(T vertex) {
     if (verticies.isEmpty() && edges.isEmpty()) {
       throw new UnsupportedOperationException();
@@ -166,6 +202,11 @@ public class Graph<T extends Comparable<T>> {
     return equivalenceClass;
   }
 
+  /**
+   * Finds the iterativeBreadthFirstSearch path of the graph
+   *
+   * @return the set of vertices in the iterativeBreadthFirstSearch path
+   */
   public List<T> iterativeBreadthFirstSearch() {
     Set<T> roots = getRoots();
     T rootNode = roots.iterator().next();
@@ -199,6 +240,13 @@ public class Graph<T extends Comparable<T>> {
     return visited;
   }
 
+  /**
+   * Finds the nth element in a set
+   *
+   * @param data the set
+   * @param n the index of the element
+   * @return the nth element in the set
+   */
   public T nthElementinSet(Iterable<T> data, int n) {
     int index = 0;
     for (T element : data) {
@@ -210,6 +258,11 @@ public class Graph<T extends Comparable<T>> {
     return null;
   }
 
+  /**
+   * Finds the iterativeDepthFirstSearch path of the graph
+   *
+   * @return the set of vertices in the iterativeDepthFirstSearch path
+   */
   public List<T> iterativeDepthFirstSearch() {
     Set<T> roots = getRoots();
     T rootNode = roots.iterator().next();
