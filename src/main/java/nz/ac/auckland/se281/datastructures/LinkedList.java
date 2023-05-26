@@ -20,7 +20,7 @@ public class LinkedList<T> {
   /**
    * Adds a new node to the end of the list, making required reference changes.
    *
-   * @param data
+   * @param data The data to be added to the list.
    */
   public void add(T data) {
     Node<T> newNode = new Node<T>(data);
@@ -39,7 +39,7 @@ public class LinkedList<T> {
   /**
    * Gets the data of the node at the specified index and returns the data.
    *
-   * @param index
+   * @param index The index of the node to get the data from.
    * @return data of the node at the specified index.
    */
   public T get(int index) {
@@ -59,8 +59,8 @@ public class LinkedList<T> {
   /**
    * Inserts a new node at the specified index, making required reference changes.
    *
-   * @param index
-   * @param data
+   * @param index The index to insert the new node at.
+   * @param data The data to be added to the list.
    */
   public void insert(int index, T data) {
     if (index >= size()) {
@@ -85,7 +85,7 @@ public class LinkedList<T> {
   /**
    * Removes the node at the specified index, making required reference changes.
    *
-   * @param index
+   * @param index The index of the node to be removed.
    */
   public void remove(int index) {
     if (index == 0) {
@@ -133,7 +133,7 @@ public class LinkedList<T> {
   /**
    * Returns the index of the first occurrence of the specified data.
    *
-   * @param data
+   * @param data The data to be searched for.
    * @return index of the first occurrence of the specified data.
    */
   public int indexOf(T data) {

@@ -57,7 +57,7 @@ public class Edge<T> {
   /**
    * Checks if the two edges are equal, and returns a boolean result.
    *
-   * @param obj
+   * @param obj the object to compare.
    * @return true if equal, false otherwise.
    */
   @Override

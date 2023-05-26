@@ -179,7 +179,7 @@ public class Graph<T extends Comparable<T>> {
   /**
    * Finds the equivalence class of a vertex, and returns it as a set.
    *
-   * @param vertex
+   * @param vertex The vertex to find the equivalence class of.
    * @return the equivalence class of the vertex.
    */
   public Set<T> getEquivalenceClass(T vertex) {

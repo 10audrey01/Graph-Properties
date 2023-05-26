@@ -20,7 +20,7 @@ public class Queue<T> {
   /**
    * Adds data to the queue, making required reference changes.
    *
-   * @param data
+   * @param data data of the node.
    */
   public void enqueue(T data) {
     Node<T> newNode = new Node<T>(data);

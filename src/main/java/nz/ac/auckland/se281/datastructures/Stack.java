@@ -18,7 +18,7 @@ public class Stack<T> {
   /**
    * Adds data to the stack, making required reference changes.
    *
-   * @param data
+   * @param data data of the node.
    */
   public void push(T data) {
     Node<T> newNode = new Node<T>(data); // initialise data into new node

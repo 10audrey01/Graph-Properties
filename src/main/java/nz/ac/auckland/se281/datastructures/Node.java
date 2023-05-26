@@ -15,7 +15,7 @@ public class Node<T> {
   /**
    * Constructor for Node class with data, prev and next.
    *
-   * @param data
+   * @param data data of the node.
    */
   public Node(T data) {
     this.data = data;
@@ -35,7 +35,7 @@ public class Node<T> {
   /**
    * Sets data of the node, does not return anything.
    *
-   * @param data
+   * @param data data of the node.
    */
   public void setData(T data) {
     this.data = data;
@@ -53,7 +53,7 @@ public class Node<T> {
   /**
    * Sets the next node, does not return anything.
    *
-   * @param next
+   * @param next next node.
    */
   public void setNext(Node<T> next) {
     this.next = next;
@@ -71,7 +71,7 @@ public class Node<T> {
   /**
    * Sets the previous node, does not return anything.
    *
-   * @param prev
+   * @param prev previous node.
    */
   public void setPrev(Node<T> prev) {
     this.prev = prev;
