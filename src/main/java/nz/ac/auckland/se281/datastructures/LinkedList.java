@@ -11,7 +11,7 @@ public class LinkedList<T> {
   }
 
   /**
-   * Add a new node to the end of the list.
+   * Adds a new node to the end of the list, making required reference changes.
    *
    * @param data
    */
@@ -30,10 +30,10 @@ public class LinkedList<T> {
   }
 
   /**
-   * Gets the data of the node at the specified index.
+   * Gets the data of the node at the specified index and returns the data.
    *
    * @param index
-   * @return data of the node at the specified index
+   * @return data of the node at the specified index.
    */
   public T get(int index) {
     Node<T> current = head;
@@ -50,7 +50,7 @@ public class LinkedList<T> {
   }
 
   /**
-   * Inserts a new node at the specified index.
+   * Inserts a new node at the specified index, making required reference changes.
    *
    * @param index
    * @param data
@@ -76,7 +76,7 @@ public class LinkedList<T> {
   }
 
   /**
-   * Removes the node at the specified index.
+   * Removes the node at the specified index, making required reference changes.
    *
    * @param index
    */
@@ -96,9 +96,9 @@ public class LinkedList<T> {
   }
 
   /**
-   * Returns the number of nodes in the list.
+   * Returns the number of nodes in the list as an integer.
    *
-   * @return number of nodes in the list
+   * @return number of nodes in the list.
    */
   public int size() {
     Node<T> current = head;
@@ -112,9 +112,9 @@ public class LinkedList<T> {
   }
 
   /**
-   * Checks is list is empty
+   * Checks if the list is empty, and returns a boolean result.
    *
-   * @return true if the list is empty and false otherwise
+   * @return true if the list is empty and false otherwise.
    */
   public boolean isEmpty() {
     if (head == null) {
@@ -127,7 +127,7 @@ public class LinkedList<T> {
    * Returns the index of the first occurrence of the specified data.
    *
    * @param data
-   * @return index of the first occurrence of the specified data
+   * @return index of the first occurrence of the specified data.
    */
   public int indexOf(T data) {
     for (int i = 0; i < size(); i++) {

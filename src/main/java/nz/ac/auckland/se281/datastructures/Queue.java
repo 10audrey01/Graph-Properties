@@ -11,7 +11,7 @@ public class Queue<T> {
   }
 
   /**
-   * Adds data to the queue.
+   * Adds data to the queue, making required reference changes.
    *
    * @param data
    */
@@ -19,16 +19,16 @@ public class Queue<T> {
     Node<T> newNode = new Node<T>(data);
 
     if (back == null) { // if the queue is empty
-      front = newNode; // set the new node as the front and back
-      back = newNode; // set the new node as the front and back
+      front = newNode;
+      back = newNode;
     } else {
-      newNode.setPrev(back); // set the new node's previous to the current tail
-      back.setNext(newNode); // set the current tail's next to the new node
+      newNode.setPrev(back);
+      back.setNext(newNode);
       back = newNode; // set the new node as the new tail
     }
   }
 
-  /** Removes the front element of the queue. */
+  /** Removes the front element of the queue, making required reference changes. */
   public void dequeue() {
     if (front == null) {
       System.out.println("Underflow");
@@ -44,9 +44,9 @@ public class Queue<T> {
   }
 
   /**
-   * Returns the front element of the queue.
+   * Returns the front element of the queue, also checks if queue is empty.
    *
-   * @return front element of the queue
+   * @return front element of the queue.
    */
   public T peek() {
     if (front == null) {
@@ -56,9 +56,9 @@ public class Queue<T> {
   }
 
   /**
-   * Checks if the queue is empty.
+   * Checks if the queue is empty returns a boolean result.
    *
-   * @return true if the queue is empty and false otherwise
+   * @return true if the queue is empty and false otherwise.
    */
   public boolean isEmpty() {
     return front == null;

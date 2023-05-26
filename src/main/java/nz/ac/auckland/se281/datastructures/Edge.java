@@ -12,38 +12,38 @@ public class Edge<T> {
   private T destination;
 
   /**
-   * Creates an edge between two verticies.
+   * Creates an edge between two verticies, with a source and destination.
    *
    * @param source
    * @param destination
    */
-  public Edge(T source, T destination) { // contructor with source and destination vertices
+  public Edge(T source, T destination) { // constructor with source and destination vertices
     this.source = source;
     this.destination = destination;
   }
 
   /**
-   * Gets the source vertex.
+   * Gets the source vertex and returns it.
    *
-   * @return
+   * @return source vertex.
    */
   public T getSource() {
     return source;
   }
 
   /**
-   * Gets the destination vertex.
+   * Gets the destination vertex and returns it.
    *
-   * @return
+   * @return destination vertex.
    */
   public T getDestination() {
     return destination;
   }
 
   /**
-   * Finds the hashcode
+   * Finds the hashcode, a unique code to hashkey to find the value.
    *
-   * @return the hashcode
+   * @return the hashcode.
    */
   @Override
   public int hashCode() { // Override hashCode()
@@ -55,10 +55,10 @@ public class Edge<T> {
   }
 
   /**
-   * Checks if two edges are equal
+   * Checks if the two edges are equal, and returns a boolean result.
    *
    * @param obj
-   * @return true if equal, false otherwise
+   * @return true if equal, false otherwise.
    */
   @Override
   public boolean equals(

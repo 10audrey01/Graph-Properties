@@ -9,7 +9,7 @@ public class Stack<T> {
   }
 
   /**
-   * Adds data to the stack.
+   * Adds data to the stack, making required reference changes.
    *
    * @param data
    */
@@ -29,9 +29,9 @@ public class Stack<T> {
   }
 
   /**
-   * Finds data of top node
+   * Finds data of top node, and returns it, also checks if stack is empty.
    *
-   * @return top element of the stack
+   * @return top element of the stack.
    */
   public T peek() {
     if (top == null) { // if stack is empty
@@ -42,9 +42,9 @@ public class Stack<T> {
   }
 
   /**
-   * Finds the size of the stack.
+   * Finds the number of elements of the stack and returns it as an integer.
    *
-   * @return size of the stack
+   * @return size of the stack.
    */
   public int size() {
     int count = 0;
@@ -57,9 +57,9 @@ public class Stack<T> {
   }
 
   /**
-   * Checks if the stack is empty.
+   * Checks if the stack is empty and returns a boolean result.
    *
-   * @return true if the stack is empty and false if not
+   * @return true if the stack is empty and false if not.
    */
   public boolean isEmpty() {
     return top == null;

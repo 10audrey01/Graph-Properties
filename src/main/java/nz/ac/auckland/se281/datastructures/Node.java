@@ -17,16 +17,16 @@ public class Node<T> {
   }
 
   /**
-   * Gets data of the node.
+   * Gets data of the node and returns it.
    *
-   * @return data of the node
+   * @return data of the node.
    */
   public T getData() {
     return data;
   }
 
   /**
-   * Sets data of the node.
+   * Sets data of the node, does not return anything.
    *
    * @param data
    */
@@ -35,16 +35,16 @@ public class Node<T> {
   }
 
   /**
-   * Gets the next node.
+   * Gets the next node and returns it.
    *
-   * @return next node
+   * @return next node.
    */
   public Node<T> getNext() {
     return this.next;
   }
 
   /**
-   * Sets the next node.
+   * Sets the next node, does not return anything.
    *
    * @param next
    */
@@ -53,16 +53,16 @@ public class Node<T> {
   }
 
   /**
-   * Gets the previous node.
+   * Gets the previous node and returns it.
    *
-   * @return previous node
+   * @return previous node.
    */
   public Node<T> getPrev() {
     return this.prev;
   }
 
   /**
-   * Sets the previous node.
+   * Sets the previous node, does not return anything.
    *
    * @param prev
    */

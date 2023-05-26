@@ -22,7 +22,7 @@ public class Graph<T extends Comparable<T>> {
   }
 
   /**
-   * Finds the set of root verticies in the graph.
+   * Finds the set of root verticies in the graph and returns as a set.
    *
    * @return The set of root verticies.
    */
@@ -58,9 +58,9 @@ public class Graph<T extends Comparable<T>> {
   }
 
   /**
-   * Checks if the graph is reflexive
+   * Checks if the graph is reflexive, and returns a boolean result.
    *
-   * @return true or false
+   * @return true or false.
    */
   public boolean isReflexive() {
     if (verticies.isEmpty() && edges.isEmpty()) {
@@ -82,9 +82,9 @@ public class Graph<T extends Comparable<T>> {
   }
 
   /**
-   * Checks if the graph is symmetric
+   * Checks if the graph is symmetric, and returns a boolean result.
    *
-   * @return true or false
+   * @return true or false.
    */
   public boolean isSymmetric() {
     if (verticies.isEmpty() && edges.isEmpty()) {
@@ -103,9 +103,9 @@ public class Graph<T extends Comparable<T>> {
   }
 
   /**
-   * Checks if the graph is transitive
+   * Checks if the graph is transitive, and returns a boolean result.
    *
-   * @return true or false
+   * @return true or false.
    */
   public boolean isTransitive() {
     if (verticies.isEmpty() && edges.isEmpty()) {
@@ -135,9 +135,9 @@ public class Graph<T extends Comparable<T>> {
   }
 
   /**
-   * Checks if the graph is anti-symmetric
+   * Checks if the graph is anti-symmetric, and returns a boolean result.
    *
-   * @return true or false
+   * @return true or false.
    */
   public boolean isAntiSymmetric() {
     if (verticies.isEmpty() && edges.isEmpty()) {
@@ -160,9 +160,9 @@ public class Graph<T extends Comparable<T>> {
   }
 
   /**
-   * Checks if the graph is an equivalence relation
+   * Checks if the graph is an equivalence relation, and returns a boolean result.
    *
-   * @return true or false
+   * @return true or false.
    */
   public boolean isEquivalence() {
     if (verticies.isEmpty() && edges.isEmpty()) {
@@ -177,10 +177,10 @@ public class Graph<T extends Comparable<T>> {
   }
 
   /**
-   * Finds the equivalence class of a vertex
+   * Finds the equivalence class of a vertex, and returns it as a set.
    *
    * @param vertex
-   * @return the equivalence class of the vertex
+   * @return the equivalence class of the vertex.
    */
   public Set<T> getEquivalenceClass(T vertex) {
     if (verticies.isEmpty() && edges.isEmpty()) {
@@ -203,9 +203,9 @@ public class Graph<T extends Comparable<T>> {
   }
 
   /**
-   * Finds the iterativeBreadthFirstSearch path of the graph
+   * Finds the iterativeBreadthFirstSearch path of the graph, and returns it as a list.
    *
-   * @return the set of vertices in the iterativeBreadthFirstSearch path
+   * @return the set of vertices in the iterativeBreadthFirstSearch path.
    */
   public List<T> iterativeBreadthFirstSearch() {
     Set<T> roots = getRoots();
@@ -241,11 +241,11 @@ public class Graph<T extends Comparable<T>> {
   }
 
   /**
-   * Finds the nth element in a set
+   * Finds the nth element in a set and returns the data in the element.
    *
-   * @param data the set
-   * @param n the index of the element
-   * @return the nth element in the set
+   * @param data the set.
+   * @param n the index of the element.
+   * @return the nth element in the set.
    */
   public T nthElementinSet(Iterable<T> data, int n) {
     int index = 0;
@@ -259,9 +259,9 @@ public class Graph<T extends Comparable<T>> {
   }
 
   /**
-   * Finds the iterativeDepthFirstSearch path of the graph
+   * Finds the iterativeDepthFirstSearch path of the graph, and returns it as a list.
    *
-   * @return the set of vertices in the iterativeDepthFirstSearch path
+   * @return the set of vertices in the iterativeDepthFirstSearch path.
    */
   public List<T> iterativeDepthFirstSearch() {
     Set<T> roots = getRoots();
