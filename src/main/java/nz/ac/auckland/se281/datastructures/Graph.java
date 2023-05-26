@@ -173,9 +173,9 @@ public class Graph<T extends Comparable<T>> {
     List<T> visited = new LinkedList<T>();
     int countRootsVisited = 0;
 
-    visited.add(rootNode);
+    visited.add(rootNode); // add the root node to the visited list
     countRootsVisited++;
-    queue.enqueue(rootNode);
+    queue.enqueue(rootNode); // add the root node to the queue
 
     while (!queue.isEmpty()) {
       for (Edge<T> edge : edges) {
@@ -211,8 +211,40 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public List<T> iterativeDepthFirstSearch() {
-    // TODO: Task 2.
-    throw new UnsupportedOperationException();
+    Set<T> roots = getRoots();
+    T rootNode = roots.iterator().next();
+    Stack<T> stack = new Stack<>();
+    List<T> visited = new LinkedList<T>();
+    int countRootsVisited = 0;
+    int numberOfUnvisitedAdjacentVerticies = 0;
+
+    visited.add(rootNode); // add the root node to the visited list
+    countRootsVisited++;
+    stack.push(rootNode); // add the root node to the stack
+
+    while (!stack.isEmpty()) {
+      for (Edge<T> edge : edges) {
+        if (edge.getSource().compareTo(stack.peek()) == 0
+            && !visited.contains(edge.getDestination())) { // if the edge is adjacent and unvisited
+          visited.add(edge.getDestination());
+          stack.push(edge.getDestination());
+          numberOfUnvisitedAdjacentVerticies++;
+        }
+      }
+      if (numberOfUnvisitedAdjacentVerticies == 0) { // if there are no more adjacent verticies
+        stack.pop();
+      }
+      if (countRootsVisited < roots.size()) { // if there are more roots to visit
+        rootNode = nthElementinSet(roots, countRootsVisited); // root node is the next root
+        if (!visited.contains(rootNode)) { // if the root node hasn't been visited
+          visited.add(rootNode);
+          countRootsVisited++;
+          stack.push(rootNode);
+        }
+      }
+      numberOfUnvisitedAdjacentVerticies = 0;
+    }
+    return visited;
   }
 
   public List<T> recursiveBreadthFirstSearch() {
