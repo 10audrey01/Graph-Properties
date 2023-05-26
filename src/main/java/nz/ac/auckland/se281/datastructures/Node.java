@@ -1,5 +1,12 @@
 package nz.ac.auckland.se281.datastructures;
 
+/**
+ * The node class that is used in the linked list.
+ *
+ * <p>You must NOT change the signature of the existing methods or constructor of this class.
+ *
+ * @param <T> The type of each node.
+ */
 public class Node<T> {
   private T data;
   private Node<T> prev;

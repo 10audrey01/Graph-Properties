@@ -1,5 +1,12 @@
 package nz.ac.auckland.se281.datastructures;
 
+/**
+ * A queue that is composed of nodes and implements the LinkedList class.
+ *
+ * <p>You must NOT change the signature of the existing methods or constructor of this class.
+ *
+ * @param <T> The type of each node.
+ */
 public class Queue<T> {
   private Node<T> front;
   private Node<T> back;

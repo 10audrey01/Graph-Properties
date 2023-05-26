@@ -1,5 +1,12 @@
 package nz.ac.auckland.se281.datastructures;
 
+/**
+ * A linked list that is composed of nodes as it uses the Node class.
+ *
+ * <p>You must NOT change the signature of the existing methods or constructor of this class.
+ *
+ * @param <T> The type of each node.
+ */
 public class LinkedList<T> {
   private Node<T> head;
   private Node<T> tail;
