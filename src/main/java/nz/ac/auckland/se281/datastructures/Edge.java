@@ -14,8 +14,8 @@ public class Edge<T> {
   /**
    * Creates an edge between two verticies, with a source and destination.
    *
-   * @param source
-   * @param destination
+   * @param source the source vertex.
+   * @param destination the destination vertex.
    */
   public Edge(T source, T destination) { // constructor with source and destination vertices
     this.source = source;
