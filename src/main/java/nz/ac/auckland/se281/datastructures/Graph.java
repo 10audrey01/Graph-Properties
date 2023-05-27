@@ -1,5 +1,8 @@
 package nz.ac.auckland.se281.datastructures;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,9 +19,59 @@ public class Graph<T extends Comparable<T>> {
   private Set<T> verticies;
   private Set<Edge<T>> edges;
 
+  /**
+   * Creates a graph with sorted set of verticies and edges.
+   *
+   * @param verticies the set of verticies
+   * @param edges the set of edges
+   */
   public Graph(Set<T> verticies, Set<Edge<T>> edges) {
-    this.verticies = verticies;
-    this.edges = edges;
+    this.verticies = sortVerticiesSet(verticies);
+    this.edges = sortEdgesSet(edges);
+  }
+
+  /**
+   * Gets the set of verticies and sorts it in ascending order.
+   *
+   * @param verticies the set of verticies.
+   * @return the sorted set of verticies
+   */
+  public Set<T> sortVerticiesSet(Set<T> verticies) {
+    Set<T> sortedSet = new HashSet<>();
+    List<T> sortedList = new ArrayList<>(verticies);
+    Collections.sort(sortedList);
+    for (T vertex : sortedList) {
+      sortedSet.add(vertex);
+    }
+    return sortedSet;
+  }
+
+  /**
+   * Gets the set of edges and sorts it in ascending order, depending on source vertex. If the
+   * source vertex is the same, then sort by destination vertex.
+   *
+   * @param edges the set of edges.
+   * @return the sorted set of edges.
+   */
+  public Set<Edge<T>> sortEdgesSet(Set<Edge<T>> edges) {
+    Set<Edge<T>> sortedSet = new HashSet<>();
+    List<Edge<T>> sortedList = new ArrayList<>(edges);
+    Collections.sort(
+        sortedList,
+        new Comparator<Edge<T>>() {
+          @Override
+          public int compare(Edge<T> o1, Edge<T> o2) {
+            if (o1.getSource().compareTo(o2.getSource()) == 0) {
+              return o1.getDestination().compareTo(o2.getDestination());
+            } else {
+              return o1.getSource().compareTo(o2.getSource());
+            }
+          }
+        });
+    for (Edge<T> edge : sortedList) {
+      sortedSet.add(edge);
+    }
+    return sortedSet;
   }
 
   /**
