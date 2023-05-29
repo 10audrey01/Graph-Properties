@@ -89,10 +89,9 @@ public class Graph<T extends Comparable<T>> {
 
     for (T vertex : verticies) {
       for (Edge<T> edge : edges) {
-        if (vertex.compareTo(edge.getDestination()) == 0
-            && vertex.compareTo(edge.getSource())
-                != 0) { // check if every vertex has in-degree of more than 0
-          roots.remove(vertex); // if it does, remove it from the set of roots
+        // check if every vertex is a destination for an edge, if so in-degree is not 0
+        if (vertex.compareTo(edge.getDestination()) == 0) {
+          roots.remove(vertex); // if in degree is not zero, remove it from the set of roots
         }
       }
     }
