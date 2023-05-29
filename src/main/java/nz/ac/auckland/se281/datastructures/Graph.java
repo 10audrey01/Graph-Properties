@@ -393,8 +393,54 @@ public class Graph<T extends Comparable<T>> {
     return recursiveBFS(roots, rootNode, queue, visited, countRootsVisited);
   }
 
+  public List<T> recursiveDFS(
+      Set<T> rootSet,
+      T rootNode,
+      Stack<T> stack,
+      List<T> visited,
+      int countRootsVisited,
+      int numberOfUnvisitedAdjacentVerticies) {
+    if (stack.isEmpty()) {
+      return visited;
+    }
+
+    for (Edge<T> edge : edges) {
+      if (edge.getSource().compareTo(stack.peek()) == 0
+          && !visited.contains(edge.getDestination())) { // if the edge is adjacent and unvisited
+        visited.add(edge.getDestination());
+        stack.push(edge.getDestination());
+        numberOfUnvisitedAdjacentVerticies++;
+      }
+    }
+    if (numberOfUnvisitedAdjacentVerticies == 0) { // if there are no more adjacent verticies
+      stack.pop();
+    }
+    if (countRootsVisited < rootSet.size()) { // if there are more roots to visit
+      rootNode = nthElementinSet(rootSet, countRootsVisited); // root node is the next root
+      if (!visited.contains(rootNode)) { // if the root node hasn't been visited
+        visited.add(rootNode);
+        countRootsVisited++;
+        stack.push(rootNode);
+      }
+    }
+    numberOfUnvisitedAdjacentVerticies = 0;
+    return recursiveDFS(
+        rootSet, rootNode, stack, visited, countRootsVisited, numberOfUnvisitedAdjacentVerticies);
+  }
+
   public List<T> recursiveDepthFirstSearch() {
-    // TODO: Task 3.
-    throw new UnsupportedOperationException();
+    Set<T> roots = getRoots();
+    T rootNode = roots.iterator().next();
+    Stack<T> stack = new Stack<>();
+    List<T> visited = new LinkedList<T>();
+    int countRootsVisited = 0;
+    int numberOfUnvisitedAdjacentVerticies = 0;
+
+    visited.add(rootNode); // add the root node to the visited list
+    countRootsVisited++;
+    stack.push(rootNode); // add the root node to the stack
+
+    return recursiveDFS(
+        roots, rootNode, stack, visited, countRootsVisited, numberOfUnvisitedAdjacentVerticies);
   }
 }
