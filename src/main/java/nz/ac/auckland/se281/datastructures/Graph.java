@@ -58,17 +58,18 @@ public class Graph<T extends Comparable<T>> {
     List<Edge<T>> sortedList = new ArrayList<>(edges);
     Collections.sort(
         sortedList,
-        new Comparator<Edge<T>>() {
+        new Comparator<Edge<T>>() { // use comparator to sort by source vertex
           @Override
           public int compare(Edge<T> o1, Edge<T> o2) {
             if (o1.getSource().compareTo(o2.getSource()) == 0) {
+              // if source vertex is the same, sort by destination vertex
               return o1.getDestination().compareTo(o2.getDestination());
             } else {
-              return o1.getSource().compareTo(o2.getSource());
+              return o1.getSource().compareTo(o2.getSource()); // otherwise sort by source vertex
             }
           }
         });
-    for (Edge<T> edge : sortedList) {
+    for (Edge<T> edge : sortedList) { // convert sorted list to sorted set
       sortedSet.add(edge);
     }
     return sortedSet;
@@ -364,7 +365,7 @@ public class Graph<T extends Comparable<T>> {
    * @param countRootsVisited the number of roots that have been visited.
    * @return the intermediate list of vertices in the recursiveBreadthFirstSearch path.
    */
-  public List<T> recursiveBFS(
+  public List<T> recursiveHelperBreadthFirstSearch(
       Set<T> rootSet, T rootNode, Queue<T> queue, List<T> visited, int countRootsVisited) {
     if (queue.isEmpty()) {
       return visited;
@@ -387,7 +388,7 @@ public class Graph<T extends Comparable<T>> {
       }
     }
     queue.dequeue();
-    return recursiveBFS(rootSet, rootNode, queue, visited, countRootsVisited);
+    return recursiveHelperBreadthFirstSearch(rootSet, rootNode, queue, visited, countRootsVisited);
   }
 
   /**
@@ -407,7 +408,7 @@ public class Graph<T extends Comparable<T>> {
     countRootsVisited++;
     queue.enqueue(rootNode); // add the root node to the queue
 
-    return recursiveBFS(roots, rootNode, queue, visited, countRootsVisited);
+    return recursiveHelperBreadthFirstSearch(roots, rootNode, queue, visited, countRootsVisited);
   }
 
   /**
@@ -422,7 +423,7 @@ public class Graph<T extends Comparable<T>> {
    * @param numberOfUnvisitedAdjacentVerticies the number of unvisited adjacent verticies.
    * @return the intermediate list of vertices in the recursiveDepthFirstSearch path.
    */
-  public List<T> recursiveDFS(
+  public List<T> recursiveHelperDepthFirstSearch(
       Set<T> rootSet,
       T rootNode,
       Stack<T> stack,
@@ -453,7 +454,7 @@ public class Graph<T extends Comparable<T>> {
       }
     }
     numberOfUnvisitedAdjacentVerticies = 0;
-    return recursiveDFS(
+    return recursiveHelperDepthFirstSearch(
         rootSet, rootNode, stack, visited, countRootsVisited, numberOfUnvisitedAdjacentVerticies);
   }
 
@@ -475,7 +476,7 @@ public class Graph<T extends Comparable<T>> {
     countRootsVisited++;
     stack.push(rootNode); // add the root node to the stack
 
-    return recursiveDFS(
+    return recursiveHelperDepthFirstSearch(
         roots, rootNode, stack, visited, countRootsVisited, numberOfUnvisitedAdjacentVerticies);
   }
 }
