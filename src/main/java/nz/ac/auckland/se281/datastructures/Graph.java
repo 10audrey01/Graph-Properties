@@ -353,6 +353,17 @@ public class Graph<T extends Comparable<T>> {
     return visited;
   }
 
+  /**
+   * Finds the recursiveBreadthFirstSearch path of the graph, and returns it as a list, the helper
+   * recursive method for recursiveBreadthFirstSearch.
+   *
+   * @param rootSet the set of root nodes.
+   * @param rootNode the current root node being traversed.
+   * @param queue the queue of verticies to be visited.
+   * @param visited the list of verticies that have been visited.
+   * @param countRootsVisited the number of roots that have been visited.
+   * @return the intermediate list of vertices in the recursiveBreadthFirstSearch path.
+   */
   public List<T> recursiveBFS(
       Set<T> rootSet, T rootNode, Queue<T> queue, List<T> visited, int countRootsVisited) {
     if (queue.isEmpty()) {
@@ -379,6 +390,12 @@ public class Graph<T extends Comparable<T>> {
     return recursiveBFS(rootSet, rootNode, queue, visited, countRootsVisited);
   }
 
+  /**
+   * Finds the recursiveBreadthFirstSearch path of the graph, and returns it as a list, initialises
+   * the variables required for helper method recursiveBFS.
+   *
+   * @return the list of vertices in the recursiveBreadthFirstSearch path.
+   */
   public List<T> recursiveBreadthFirstSearch() {
     Set<T> roots = getRoots();
     T rootNode = roots.iterator().next();
@@ -393,6 +410,18 @@ public class Graph<T extends Comparable<T>> {
     return recursiveBFS(roots, rootNode, queue, visited, countRootsVisited);
   }
 
+  /**
+   * Finds the recursiveDepthFirstSearch path of the graph, and returns it as a list, the helper
+   * recursive method for recursiveDepthFirstSearch.
+   *
+   * @param rootSet the set of root nodes.
+   * @param rootNode the current root node being traversed.
+   * @param stack the stack of verticies to be visited.
+   * @param visited the list of verticies that have been visited.
+   * @param countRootsVisited the number of roots that have been visited.
+   * @param numberOfUnvisitedAdjacentVerticies the number of unvisited adjacent verticies.
+   * @return the intermediate list of vertices in the recursiveDepthFirstSearch path.
+   */
   public List<T> recursiveDFS(
       Set<T> rootSet,
       T rootNode,
@@ -428,6 +457,12 @@ public class Graph<T extends Comparable<T>> {
         rootSet, rootNode, stack, visited, countRootsVisited, numberOfUnvisitedAdjacentVerticies);
   }
 
+  /**
+   * Finds the recursiveDepthFirstSearch path of the graph, and returns it as a list, initialises
+   * the variables required for helper method recursiveDFS.
+   *
+   * @return the list of vertices in the recursiveDepthFirstSearch path.
+   */
   public List<T> recursiveDepthFirstSearch() {
     Set<T> roots = getRoots();
     T rootNode = roots.iterator().next();
