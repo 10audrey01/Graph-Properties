@@ -353,9 +353,44 @@ public class Graph<T extends Comparable<T>> {
     return visited;
   }
 
+  public List<T> recursiveBFS(
+      Set<T> rootSet, T rootNode, Queue<T> queue, List<T> visited, int countRootsVisited) {
+    if (queue.isEmpty()) {
+      return visited;
+    }
+
+    for (Edge<T> edge : edges) {
+      if (edge.getSource().compareTo(queue.peek()) == 0
+          && !visited.contains(edge.getDestination())) {
+        visited.add(edge.getDestination());
+        queue.enqueue(edge.getDestination());
+      }
+    }
+
+    if (countRootsVisited < rootSet.size()) { // if there are more roots to visit
+      rootNode = nthElementinSet(rootSet, countRootsVisited); // root node is the next root
+      if (!visited.contains(rootNode)) { // if the root node hasn't been visited
+        visited.add(rootNode);
+        countRootsVisited++;
+        queue.enqueue(rootNode);
+      }
+    }
+    queue.dequeue();
+    return recursiveBFS(rootSet, rootNode, queue, visited, countRootsVisited);
+  }
+
   public List<T> recursiveBreadthFirstSearch() {
-    // TODO: Task 3.
-    throw new UnsupportedOperationException();
+    Set<T> roots = getRoots();
+    T rootNode = roots.iterator().next();
+    Queue<T> queue = new Queue<>();
+    List<T> visited = new LinkedList<T>();
+    int countRootsVisited = 0;
+
+    visited.add(rootNode); // add the root node to the visited list
+    countRootsVisited++;
+    queue.enqueue(rootNode); // add the root node to the queue
+
+    return recursiveBFS(roots, rootNode, queue, visited, countRootsVisited);
   }
 
   public List<T> recursiveDepthFirstSearch() {
