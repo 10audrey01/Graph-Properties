@@ -206,8 +206,8 @@ public class Graph<T extends Comparable<T>> {
         T vertexC = edge2.getSource();
         T vertexD = edge2.getDestination();
 
-        if (vertexB.equals(vertexC) && !edges.contains(new Edge<T>(vertexA, vertexD))) {
-          Edge<T> temp = new Edge<T>(vertexA, vertexD);
+        if (vertexB == vertexC) {
+          Edge<T> temp = new Edge<>(vertexA, vertexD);
           if (!edges.contains(temp)) {
             return false;
           }
