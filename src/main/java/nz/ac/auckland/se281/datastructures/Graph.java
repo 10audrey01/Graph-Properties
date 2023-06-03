@@ -2,12 +2,10 @@ package nz.ac.auckland.se281.datastructures;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -20,6 +18,9 @@ import java.util.Set;
 public class Graph<T extends Comparable<T>> {
   private Set<T> verticies;
   private Set<Edge<T>> edges;
+  private HashMap<T, ArrayList<T>> adjacencyList;
+
+  // private int numberOfEdges;
 
   /**
    * Creates a graph with sorted set of verticies and edges.
@@ -28,81 +29,84 @@ public class Graph<T extends Comparable<T>> {
    * @param edges the set of edges
    */
   public Graph(Set<T> verticies, Set<Edge<T>> edges) {
-    this.verticies = sortVerticesSet(verticies); // sortHashMap(edges).keySet();
-    for (T vertex : this.verticies) {
-      System.out.println(vertex);
+    this.adjacencyList = getAdjacencyList(edges);
+    System.out.println(adjacencyList);
+    this.verticies = sortVerticiesSet(verticies);
+    this.edges = sortEdgesSet(verticies);
+    for (Edge<T> edge : edges) {
+      System.out.println(edge.getSource() + " --> " + edge.getDestination());
     }
-    this.edges = sortEdgesSet(edges);
+    // this.numberOfEdges = edges.size();
   }
 
-  public HashMap<Integer, Integer> getGraphHashMap(Set<Edge<T>> edges) {
-    HashMap<Integer, Integer> unsortedGraphHashMap = new HashMap<>();
+  public HashMap<T, ArrayList<T>> getAdjacencyList(Set<Edge<T>> edges) {
+    HashMap<T, ArrayList<T>> adjacencyList = new HashMap<>();
+
     for (Edge<T> edge : edges) {
-      unsortedGraphHashMap.put(
-          Integer.parseInt(edge.getSource().toString()),
-          Integer.parseInt(edge.getDestination().toString()));
+      if (adjacencyList.containsKey(edge.getSource())) {
+        adjacencyList.get(edge.getSource()).add(edge.getDestination());
+      } else {
+        ArrayList<T> list = new ArrayList<>();
+        list.add(edge.getDestination());
+        adjacencyList.put(edge.getSource(), list);
+      }
     }
 
-    return unsortedGraphHashMap;
+    return adjacencyList;
   }
 
   /**
-   * Gets the set of edges and sorts it in ascending order, depending on source vertex. If the
-   * source vertex is the same, then sort by destination vertex.
+   * Gets the set of verticies and sorts it in ascending order.
    *
-   * @param edges the set of edges.
-   * @return the sorted set of edges.
+   * @param verticies the set of verticies.
+   * @return the sorted set of verticies
    */
-  public HashMap<T, T> sortHashMap(Set<Edge<T>> edges) {
-    List<Map.Entry<Integer, Integer>> list = new ArrayList<>(getGraphHashMap(edges).entrySet());
+  // @SuppressWarnings("unchecked")
+  public Set<T> sortVerticiesSet(Set<T> verticies) {
+    Set<T> sortedVerticiesSet = new HashSet<>();
+    Set<T> sortedKeySet = adjacencyList.keySet();
+    List<String> sortedKeyListString = new ArrayList<>();
+    List<Integer> sortedKeyListInteger = new ArrayList<>();
 
-    Collections.sort(
-        list,
-        new Comparator<Map.Entry<Integer, Integer>>() {
-
-          public int compare(Map.Entry<Integer, Integer> map1, Map.Entry<Integer, Integer> map2) {
-            if (map1.getKey().equals(map2.getKey())) {
-              System.out.println("this prints");
-              return map1.getValue().compareTo(map2.getValue());
-            } else {
-              System.out.println("this printssfsdfs");
-              return map1.getKey().compareTo(map2.getKey());
-            }
-          }
-        });
-
-    HashMap<T, T> sortedHashMap = new HashMap<>();
-    for (Map.Entry<Integer, Integer> entry : list) {
-      sortedHashMap.put((T) entry.getKey(), (T) entry.getValue());
+    for (T vertex : sortedKeySet) {
+      sortedKeyListString.add((String) vertex);
     }
 
-    return sortedHashMap;
+    for (String vertex : sortedKeyListString) {
+      sortedKeyListInteger.add(Integer.parseInt(vertex));
+    }
+    Collections.sort(sortedKeyListInteger);
+
+    for (Integer vertex : sortedKeyListInteger) {
+      sortedVerticiesSet.add((T) vertex);
+    }
+
+    return sortedVerticiesSet;
   }
 
-  public Set<T> sortVerticesSet(Set<T> verticies) {
-    List<Integer> list = new ArrayList<>();
-
-    for (T vertex : verticies) {
-      list.add(Integer.parseInt(vertex.toString()));
-    }
-    Collections.sort(list);
-
-    Set<T> sortedVerticesSet = new HashSet<>();
-    for (Integer vertex : list) {
-      sortedVerticesSet.add((T) vertex);
-    }
-    return sortedVerticesSet;
-  }
-
-  public Set<Edge<T>> sortEdgesSet(Set<Edge<T>> edges) {
+  public Set<Edge<T>> sortEdgesSet(Set<T> verticies) {
     Set<Edge<T>> sortedEdgesSet = new HashSet<>();
+    Set<T> sortedKeySet = sortVerticiesSet(verticies);
 
-    HashMap<T, T> sortedHashMap = sortHashMap(edges);
-    Set<T> sortedKeySet = sortedHashMap.keySet();
-    for (T key : sortedKeySet) {
-      sortedEdgesSet.add(new Edge<T>(key, sortedHashMap.get(key)));
+    for (T sourceVertex : sortedKeySet) {
+      if (adjacencyList.containsKey(sourceVertex)) {
+        for (T destination : adjacencyList.get(sourceVertex)) {
+          sortedEdgesSet.add(new Edge<T>(sourceVertex, destination));
+        }
+      }
     }
+
     return sortedEdgesSet;
+  }
+
+  public boolean containsEdge(Edge<T> edge, Set<Edge<T>> edges) {
+    for (Edge<T> e : edges) {
+      if (e.getSource().equals(edge.getSource())
+          && e.getDestination().equals(edge.getDestination())) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -206,8 +210,8 @@ public class Graph<T extends Comparable<T>> {
         T vertexC = edge2.getSource();
         T vertexD = edge2.getDestination();
 
-        if (vertexB == vertexC) {
-          Edge<T> temp = new Edge<>(vertexA, vertexD);
+        if (vertexB.equals(vertexC) && !edges.contains(new Edge<T>(vertexA, vertexD))) {
+          Edge<T> temp = new Edge<T>(vertexA, vertexD);
           if (!edges.contains(temp)) {
             return false;
           }
@@ -301,8 +305,14 @@ public class Graph<T extends Comparable<T>> {
     countRootsVisited++;
     queue.enqueue(rootNode); // add the root node to the queue
 
+    System.out.println(sortEdgesSet(verticies));
+
+    for (Edge<T> edge1 : sortEdgesSet(verticies)) {
+      System.out.println(edge1.getSource() + " --> " + edge1.getDestination());
+    }
+
     while (!queue.isEmpty()) {
-      for (Edge<T> edge : edges) {
+      for (Edge<T> edge : sortEdgesSet(verticies)) {
         if (edge.getSource().compareTo(queue.peek()) == 0
             && !visited.contains(edge.getDestination())) {
           visited.add(edge.getDestination());
@@ -359,7 +369,7 @@ public class Graph<T extends Comparable<T>> {
     stack.push(rootNode); // add the root node to the stack
 
     while (!stack.isEmpty()) {
-      for (Edge<T> edge : edges) {
+      for (Edge<T> edge : sortEdgesSet(verticies)) {
         if (edge.getSource().compareTo(stack.peek()) == 0
             && !visited.contains(edge.getDestination())) { // if the edge is adjacent and unvisited
           visited.add(edge.getDestination());

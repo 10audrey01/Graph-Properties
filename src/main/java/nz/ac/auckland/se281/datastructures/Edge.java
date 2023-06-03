@@ -40,18 +40,17 @@ public class Edge<T> {
     return this.destination;
   }
 
-  /**
-   * Finds the hashcode, a unique code to hashkey to find the value.
-   *
-   * @return the hashcode.
-   */
   @Override
-  public int hashCode() { // Override hashCode()
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((source == null) ? 0 : source.hashCode());
-    result = prime * result + ((destination == null) ? 0 : destination.hashCode());
-    return result;
+  public int hashCode() {
+    // final int prime = 31;
+    // int result = 1;
+    // result = prime * result + ((source == null) ? 0 : source.hashCode());
+    // result = prime * result + ((destination == null) ? 0 : destination.hashCode());
+    // return result;
+
+    String sourceString = source.toString();
+    Integer sourceInteger = Integer.parseInt(sourceString);
+    return sourceInteger;
   }
 
   /**
@@ -61,33 +60,32 @@ public class Edge<T> {
    * @return true if equal, false otherwise.
    */
   @Override
-  public boolean equals(
-      Object obj) { // Override equals() to compare two edges with source and destination
+  public boolean equals(Object obj) {
     if (this == obj) {
-      return true; // check if obj is the same as this
+      return true;
     }
     if (obj == null) {
-      return false; // check if obj is null
+      return false;
     }
     if (getClass() != obj.getClass()) {
       return false;
     }
 
-    Edge other = (Edge) obj; // cast obj to Edge
+    Edge other = (Edge) obj;
 
     if (source == null) {
       if (other.source != null) {
-        return false; // compare source and destination
+        return false;
       }
     } else if (!source.equals(other.source)) {
       return false;
     }
-    if (destination == null) { // compare source and destination
+    if (destination == null) {
       if (other.destination != null) {
         return false;
       }
     } else if (!destination.equals(other.destination)) {
-      return false; // compare source and destination
+      return false;
     }
     return true;
   }
