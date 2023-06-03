@@ -69,17 +69,21 @@ public class Edge<T> {
 
     Edge other = (Edge) obj;
 
+    // if one of the source vertices are null return false
     if (source == null) {
       if (other.source != null) {
         return false;
       }
+      // if the source vertices are not equal return false
     } else if (!source.equals(other.source)) {
       return false;
     }
+    // if one of the destination vertices are null return false
     if (destination == null) {
       if (other.destination != null) {
         return false;
       }
+      // if the destination vertices are not equal return false
     } else if (!destination.equals(other.destination)) {
       return false;
     }

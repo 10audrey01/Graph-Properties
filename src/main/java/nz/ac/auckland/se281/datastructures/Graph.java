@@ -288,11 +288,13 @@ public class Graph<T extends Comparable<T>> {
     }
 
     if (!isEquivalence()) {
+      // if the graph is not an equivalence relation, there is no equivalence class
       return new HashSet<T>();
     }
 
     Set<T> equivalenceClass = new LinkedHashSet<T>();
     for (Edge<T> edge : edges) {
+      // add all vertices that are connected to the vertex to the equivalence class
       if (edge.getSource().toString().compareTo(vertex.toString()) == 0) {
         equivalenceClass.add(edge.getDestination());
       }
