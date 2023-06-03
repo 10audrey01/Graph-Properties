@@ -26,18 +26,23 @@ public class Graph<T extends Comparable<T>> {
   /**
    * Creates a graph with sorted set of verticies and edges.
    *
-   * @param verticies the set of verticies
-   * @param edges the set of edges
+   * @param verticies the set of verticies.
+   * @param edges the set of edges.
    */
   public Graph(Set<T> verticies, Set<Edge<T>> edges) {
     this.adjacencyList = getAdjacencyList(edges);
     this.sortedAdjacencyList = sortedAdjacencyList();
-    System.out.println(sortedAdjacencyList);
-
     this.verticies = sortVertices();
     this.edges = sortEdges();
   }
 
+  /**
+   * Creates an adjacency list that represents the graph, with key being the source vertex and value
+   * being the list of destination verticies.
+   *
+   * @param edges the set of edges.
+   * @return the adjacency list.
+   */
   public HashMap<Integer, ArrayList<Integer>> getAdjacencyList(Set<Edge<T>> edges) {
     HashMap<Integer, ArrayList<Integer>> adjacencyList = new HashMap<>();
     Set<Edge<Integer>> edgesInteger = new HashSet<>();
@@ -46,10 +51,12 @@ public class Graph<T extends Comparable<T>> {
       edgesInteger.add(
           new Edge<Integer>(
               Integer.parseInt(edge.getSource().toString()),
-              Integer.parseInt(edge.getDestination().toString())));
+              Integer.parseInt(edge.getDestination().toString()))); // convert T to Integer
     }
 
     for (Edge<Integer> edge : edgesInteger) {
+      // if the source vertex is already in the adjacency list, add the destination vertex to the
+      // list
       if (adjacencyList.containsKey(edge.getSource())) {
         adjacencyList.get(edge.getSource()).add(edge.getDestination());
       } else {
@@ -62,37 +69,46 @@ public class Graph<T extends Comparable<T>> {
     return adjacencyList;
   }
 
+  /**
+   * Sorts the adjacency list by key, in ascending order.
+   *
+   * @return the sorted adjacency list.
+   */
   TreeMap<Integer, ArrayList<Integer>> sortedAdjacencyList() {
     TreeMap<Integer, ArrayList<Integer>> sortedAdjacencyList = new TreeMap<>();
 
-    sortedAdjacencyList.putAll(adjacencyList);
+    sortedAdjacencyList.putAll(adjacencyList); // sort the adjacency list by key
 
     return sortedAdjacencyList;
   }
 
+  /**
+   * Sorts the verticies in ascending order.
+   *
+   * @return the sorted set of verticies.
+   */
   public Set<T> sortVertices() {
     Set<T> sortedVerticiesSet = new LinkedHashSet<>();
     Set<Integer> sortedKeySet = sortedAdjacencyList.keySet();
-    // List<Integer> sortedKeyListInteger = new ArrayList<>();
 
     for (Integer vertex : sortedKeySet) {
-      sortedVerticiesSet.add((T) vertex);
-      // sortedKeyListInteger.add(vertex);
+      sortedVerticiesSet.add((T) vertex); // convert Integer to T
     }
-    // Collections.sort(sortedKeyListInteger);
-
-    // for (Integer vertex : sortedKeyListInteger) {
-    //   sortedVerticiesSet.add((T) vertex);
-    // }
 
     return sortedVerticiesSet;
   }
 
+  /**
+   * Sorts the edges in ascending order.
+   *
+   * @return the sorted set of edges.
+   */
   public Set<Edge<T>> sortEdges() {
     Set<Edge<T>> sortedEdges = new LinkedHashSet<>();
     List<Edge<Integer>> sortedEdgesList = new ArrayList<>();
 
     for (Integer vertex : sortedAdjacencyList.keySet()) {
+      // sort the list of destination verticies for each source vertex in ascending order
       Collections.sort(sortedAdjacencyList.get(vertex));
       for (Integer destination : sortedAdjacencyList.get(vertex)) {
         sortedEdgesList.add(new Edge<Integer>(vertex, destination));
@@ -100,7 +116,7 @@ public class Graph<T extends Comparable<T>> {
     }
 
     for (Edge<Integer> edge : sortedEdgesList) {
-      sortedEdges.add((Edge<T>) edge);
+      sortedEdges.add((Edge<T>) edge); // convert Integer to T
     }
 
     return sortedEdges;
@@ -260,19 +276,6 @@ public class Graph<T extends Comparable<T>> {
     }
   }
 
-  public Set<T> equivalenceClassHelper(T vertex) {
-    Set<T> equivalenceClass = new LinkedHashSet<T>();
-
-    for (Edge<T> edge : edges) {
-      // System.out.println(edge.getSource() + " --> " + edge.getDestination());
-      if (edge.getSource().compareTo(vertex) == 0) {
-        equivalenceClass.add(edge.getDestination());
-      }
-    }
-
-    return equivalenceClass;
-  }
-
   /**
    * Finds the equivalence class of a vertex, and returns it as a set.
    *
@@ -287,15 +290,13 @@ public class Graph<T extends Comparable<T>> {
     if (!isEquivalence()) {
       return new HashSet<T>();
     }
-    System.out.println("hello");
 
     Set<T> equivalenceClass = new LinkedHashSet<T>();
     for (Edge<T> edge : edges) {
-      if (edge.getSource().compareTo(vertex) == 0) {
+      if (edge.getSource().toString().compareTo(vertex.toString()) == 0) {
         equivalenceClass.add(edge.getDestination());
       }
     }
-    System.out.println("hi");
     return equivalenceClass;
   }
 

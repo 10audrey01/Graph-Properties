@@ -71,6 +71,7 @@ public class Queue<T> {
     return front == null;
   }
 
+  /** Clears the queue by setting front and back to null. */
   public void clear() {
     front = null;
     back = null;
