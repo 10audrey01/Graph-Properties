@@ -28,7 +28,7 @@ public class Edge<T> {
    * @return source vertex.
    */
   public T getSource() {
-    return source;
+    return this.source;
   }
 
   /**
@@ -37,7 +37,7 @@ public class Edge<T> {
    * @return destination vertex.
    */
   public T getDestination() {
-    return destination;
+    return this.destination;
   }
 
   /**

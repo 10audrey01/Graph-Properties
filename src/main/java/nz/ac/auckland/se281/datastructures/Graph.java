@@ -3,9 +3,11 @@ package nz.ac.auckland.se281.datastructures;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -26,24 +28,22 @@ public class Graph<T extends Comparable<T>> {
    * @param edges the set of edges
    */
   public Graph(Set<T> verticies, Set<Edge<T>> edges) {
-    this.verticies = sortVerticiesSet(verticies);
+    this.verticies = sortVerticesSet(verticies); // sortHashMap(edges).keySet();
+    for (T vertex : this.verticies) {
+      System.out.println(vertex);
+    }
     this.edges = sortEdgesSet(edges);
   }
 
-  /**
-   * Gets the set of verticies and sorts it in ascending order.
-   *
-   * @param verticies the set of verticies.
-   * @return the sorted set of verticies
-   */
-  public Set<T> sortVerticiesSet(Set<T> verticies) {
-    Set<T> sortedSet = new HashSet<>();
-    List<T> sortedList = new ArrayList<>(verticies);
-    Collections.sort(sortedList);
-    for (T vertex : sortedList) {
-      sortedSet.add(vertex);
+  public HashMap<Integer, Integer> getGraphHashMap(Set<Edge<T>> edges) {
+    HashMap<Integer, Integer> unsortedGraphHashMap = new HashMap<>();
+    for (Edge<T> edge : edges) {
+      unsortedGraphHashMap.put(
+          Integer.parseInt(edge.getSource().toString()),
+          Integer.parseInt(edge.getDestination().toString()));
     }
-    return sortedSet;
+
+    return unsortedGraphHashMap;
   }
 
   /**
@@ -53,26 +53,56 @@ public class Graph<T extends Comparable<T>> {
    * @param edges the set of edges.
    * @return the sorted set of edges.
    */
-  public Set<Edge<T>> sortEdgesSet(Set<Edge<T>> edges) {
-    Set<Edge<T>> sortedSet = new HashSet<>();
-    List<Edge<T>> sortedList = new ArrayList<>(edges);
+  public HashMap<T, T> sortHashMap(Set<Edge<T>> edges) {
+    List<Map.Entry<Integer, Integer>> list = new ArrayList<>(getGraphHashMap(edges).entrySet());
+
     Collections.sort(
-        sortedList,
-        new Comparator<Edge<T>>() { // use comparator to sort by source vertex
-          @Override
-          public int compare(Edge<T> o1, Edge<T> o2) {
-            if (o1.getSource().compareTo(o2.getSource()) == 0) {
-              // if source vertex is the same, sort by destination vertex
-              return o1.getDestination().compareTo(o2.getDestination());
+        list,
+        new Comparator<Map.Entry<Integer, Integer>>() {
+
+          public int compare(Map.Entry<Integer, Integer> map1, Map.Entry<Integer, Integer> map2) {
+            if (map1.getKey().equals(map2.getKey())) {
+              System.out.println("this prints");
+              return map1.getValue().compareTo(map2.getValue());
             } else {
-              return o1.getSource().compareTo(o2.getSource()); // otherwise sort by source vertex
+              System.out.println("this printssfsdfs");
+              return map1.getKey().compareTo(map2.getKey());
             }
           }
         });
-    for (Edge<T> edge : sortedList) { // convert sorted list to sorted set
-      sortedSet.add(edge);
+
+    HashMap<T, T> sortedHashMap = new HashMap<>();
+    for (Map.Entry<Integer, Integer> entry : list) {
+      sortedHashMap.put((T) entry.getKey(), (T) entry.getValue());
     }
-    return sortedSet;
+
+    return sortedHashMap;
+  }
+
+  public Set<T> sortVerticesSet(Set<T> verticies) {
+    List<Integer> list = new ArrayList<>();
+
+    for (T vertex : verticies) {
+      list.add(Integer.parseInt(vertex.toString()));
+    }
+    Collections.sort(list);
+
+    Set<T> sortedVerticesSet = new HashSet<>();
+    for (Integer vertex : list) {
+      sortedVerticesSet.add((T) vertex);
+    }
+    return sortedVerticesSet;
+  }
+
+  public Set<Edge<T>> sortEdgesSet(Set<Edge<T>> edges) {
+    Set<Edge<T>> sortedEdgesSet = new HashSet<>();
+
+    HashMap<T, T> sortedHashMap = sortHashMap(edges);
+    Set<T> sortedKeySet = sortedHashMap.keySet();
+    for (T key : sortedKeySet) {
+      sortedEdgesSet.add(new Edge<T>(key, sortedHashMap.get(key)));
+    }
+    return sortedEdgesSet;
   }
 
   /**
