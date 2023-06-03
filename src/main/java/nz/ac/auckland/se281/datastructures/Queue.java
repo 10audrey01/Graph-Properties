@@ -70,4 +70,9 @@ public class Queue<T> {
   public boolean isEmpty() {
     return front == null;
   }
+
+  public void clear() {
+    front = null;
+    back = null;
+  }
 }

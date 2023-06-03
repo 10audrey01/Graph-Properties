@@ -42,15 +42,11 @@ public class Edge<T> {
 
   @Override
   public int hashCode() {
-    // final int prime = 31;
-    // int result = 1;
-    // result = prime * result + ((source == null) ? 0 : source.hashCode());
-    // result = prime * result + ((destination == null) ? 0 : destination.hashCode());
-    // return result;
-
-    String sourceString = source.toString();
-    Integer sourceInteger = Integer.parseInt(sourceString);
-    return sourceInteger;
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((source == null) ? 0 : source.hashCode());
+    result = prime * result + ((destination == null) ? 0 : destination.hashCode());
+    return result;
   }
 
   /**
