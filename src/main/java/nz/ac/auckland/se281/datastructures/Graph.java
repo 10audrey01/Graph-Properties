@@ -33,7 +33,13 @@ public class Graph<T extends Comparable<T>> {
     this.adjacencyList = getAdjacencyList(edges);
     this.sortedAdjacencyList = sortedAdjacencyList();
     this.verticies = sortVertices();
+    for (T vertex : this.verticies) {
+      System.out.println(vertex);
+    }
     this.edges = sortEdges();
+    for (Edge<T> edge : this.edges) {
+      System.out.println(edge.getSource() + " --> " + edge.getDestination());
+    }
   }
 
   /**
@@ -55,8 +61,8 @@ public class Graph<T extends Comparable<T>> {
     }
 
     for (Edge<Integer> edge : edgesInteger) {
-      // if the source vertex is already in the adjacency list, add the destination vertex to the
-      // list
+      // if the source vertex is already in the adjacency list,
+      // add the destination vertex to the list
       if (adjacencyList.containsKey(edge.getSource())) {
         adjacencyList.get(edge.getSource()).add(edge.getDestination());
       } else {
@@ -319,19 +325,20 @@ public class Graph<T extends Comparable<T>> {
     queue.enqueue(rootNode); // add the root node to the queue
 
     while (!queue.isEmpty()) {
-      for (Edge<T> edge : edges) {
-        if (edge.getSource().compareTo(queue.peek()) == 0
-            && !visited.contains(edge.getDestination())) {
-          visited.add(edge.getDestination());
-          queue.enqueue(edge.getDestination());
+      while (!queue.isEmpty()) {
+        for (Edge<T> edge : edges) {
+          if (edge.getSource().compareTo(queue.peek()) == 0
+              && !visited.contains(edge.getDestination())) {
+            visited.add(edge.getDestination());
+            queue.enqueue(edge.getDestination());
+          }
         }
+        queue.dequeue();
       }
-      queue.dequeue();
 
       if (countRootsVisited < roots.size()) { // if there are more roots to visit
         rootNode = nthElementinSet(roots, countRootsVisited); // root node is the next root
         if (!visited.contains(rootNode)) { // if the root node hasn't been visited
-          queue.clear();
           visited.add(rootNode);
           countRootsVisited++;
           queue.enqueue(rootNode);
@@ -377,16 +384,20 @@ public class Graph<T extends Comparable<T>> {
     stack.push(rootNode); // add the root node to the stack
 
     while (!stack.isEmpty()) {
-      for (Edge<T> edge : edges) {
-        if (edge.getSource().compareTo(stack.peek()) == 0
-            && !visited.contains(edge.getDestination())) { // if the edge is adjacent and unvisited
-          visited.add(edge.getDestination());
-          stack.push(edge.getDestination());
-          numberOfUnvisitedAdjacentVerticies++;
+      while (!stack.isEmpty()) {
+        for (Edge<T> edge : edges) {
+          if (edge.getSource().compareTo(stack.peek()) == 0
+              && !visited.contains(
+                  edge.getDestination())) { // if the edge is adjacent and unvisited
+            visited.add(edge.getDestination());
+            stack.push(edge.getDestination());
+            numberOfUnvisitedAdjacentVerticies++;
+          }
         }
-      }
-      if (numberOfUnvisitedAdjacentVerticies == 0) { // if there are no more adjacent verticies
-        stack.pop();
+        if (numberOfUnvisitedAdjacentVerticies == 0) { // if there are no more adjacent verticies
+          stack.pop();
+        }
+        numberOfUnvisitedAdjacentVerticies = 0;
       }
       if (countRootsVisited < roots.size()) { // if there are more roots to visit
         rootNode = nthElementinSet(roots, countRootsVisited); // root node is the next root
@@ -396,7 +407,6 @@ public class Graph<T extends Comparable<T>> {
           stack.push(rootNode);
         }
       }
-      numberOfUnvisitedAdjacentVerticies = 0;
     }
     return visited;
   }
@@ -417,19 +427,20 @@ public class Graph<T extends Comparable<T>> {
     if (queue.isEmpty()) {
       return visited;
     }
-
-    for (Edge<T> edge : edges) {
-      if (edge.getSource().compareTo(queue.peek()) == 0
-          && !visited.contains(edge.getDestination())) {
-        visited.add(edge.getDestination());
-        queue.enqueue(edge.getDestination());
+    while (!queue.isEmpty()) {
+      for (Edge<T> edge : edges) {
+        if (edge.getSource().compareTo(queue.peek()) == 0
+            && !visited.contains(edge.getDestination())) {
+          visited.add(edge.getDestination());
+          queue.enqueue(edge.getDestination());
+        }
       }
+      queue.dequeue();
     }
-    queue.dequeue();
+
     if (countRootsVisited < rootSet.size()) { // if there are more roots to visit
       rootNode = nthElementinSet(rootSet, countRootsVisited); // root node is the next root
       if (!visited.contains(rootNode)) { // if the root node hasn't been visited
-        queue.clear();
         visited.add(rootNode);
         countRootsVisited++;
         queue.enqueue(rootNode);
@@ -482,17 +493,21 @@ public class Graph<T extends Comparable<T>> {
       return visited;
     }
 
-    for (Edge<T> edge : edges) {
-      if (edge.getSource().compareTo(stack.peek()) == 0
-          && !visited.contains(edge.getDestination())) { // if the edge is adjacent and unvisited
-        visited.add(edge.getDestination());
-        stack.push(edge.getDestination());
-        numberOfUnvisitedAdjacentVerticies++;
+    while (!stack.isEmpty()) {
+      for (Edge<T> edge : edges) {
+        if (edge.getSource().compareTo(stack.peek()) == 0
+            && !visited.contains(edge.getDestination())) { // if the edge is adjacent and unvisited
+          visited.add(edge.getDestination());
+          stack.push(edge.getDestination());
+          numberOfUnvisitedAdjacentVerticies++;
+        }
       }
+      if (numberOfUnvisitedAdjacentVerticies == 0) { // if there are no more adjacent verticies
+        stack.pop();
+      }
+      numberOfUnvisitedAdjacentVerticies = 0;
     }
-    if (numberOfUnvisitedAdjacentVerticies == 0) { // if there are no more adjacent verticies
-      stack.pop();
-    }
+
     if (countRootsVisited < rootSet.size()) { // if there are more roots to visit
       rootNode = nthElementinSet(rootSet, countRootsVisited); // root node is the next root
       if (!visited.contains(rootNode)) { // if the root node hasn't been visited
@@ -501,7 +516,6 @@ public class Graph<T extends Comparable<T>> {
         stack.push(rootNode);
       }
     }
-    numberOfUnvisitedAdjacentVerticies = 0;
     return recursiveHelperDepthFirstSearch(
         rootSet, rootNode, stack, visited, countRootsVisited, numberOfUnvisitedAdjacentVerticies);
   }
