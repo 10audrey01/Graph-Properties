@@ -1,5 +1,16 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/EoVwWP_A)
-# Assignment 3
+This program checks graph properties in a .txt format including:
+getRoots() - calculates the root verticies of the graph
+isReflexive() - checks if the graph is reflexive
+isSymmetric() - checks if the graph is symmetric
+isTransitive() - checks if the graph is transitive
+isAntiSymmetric() - checks if the graph is anti-symmetric
+isEquivalence() - checks if the graph is an equivalence relation
+getEquivalenceClass(vertex) - calculates the equivalence class of the given vertex
 
-You will find instructions for this assignment on the course website.
+as well as:
+iterativeBreadthFirstSearch() - performs an iterative breadth-first search on the graph
+iterativeDepthFirstSearch() - performs an iterative depth-first search on the graph
 
+or alternatively: 
+recursiveBreadthFirstSearch() - performs a recursive breadth-first search on the graph
+recursiveDepthFirstSearch() - performs a recursive depth-first search on the graph
